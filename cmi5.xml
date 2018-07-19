@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<courseStructure xmlns="https://w3id.org/xapi/profiles/cmi5/v1/CourseStructure.xsd">
+  <course id="http://gav.example.edu/a2">
+    <title>
+      <langstring lang="en-US">URL Parameter Demonstration</langstring>
+    </title>
+    <description>
+      <langstring lang="en-US">
+        ...
+      </langstring>
+    </description>
+  </course>
+  <au id="http://gav.example.edu/a2/c1"
+      moveOn="CompletedOrPassed">
+    <title>
+      <langstring lang="en-US">URL Param Color Changer</langstring>
+    </title>
+    <description>
+      <langstring lang="en-US">
+        ...
+      </langstring>
+    </description>
+    <url>cmi5.html</url>
+  </au>
+</courseStructure>

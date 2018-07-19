@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>SCORM Tester</title>
+
+<style type="text/css" media="screen">
+html, body { height:100%; background-color: #cccccc;}
+body { margin:0; padding:0; overflow:hidden; }
+#flashContent { width:100%; height:100%; }
+.err { background-color: red; }
+</style>
+
+<script src="js/config.js"></script>
+<script src="js/APIWrapper12_2004.js"></script>
+<script>
+//exercise the SCORM.Flash code
+var resultText = "";
+LMSInitialize = function(n) {
+    var res = "ERROR";
+    try {
+        res = api.LMSInitialize(n);
+    } catch(e) {
+        console.trace(e);
+        res = "CATCH HIT";
+    }
+
+    if (res !== "true") {
+        resultText += '<span class="err">';
+    }
+    resultText += "Initializing: ";
+    resultText += res + "\n";
+    if (res !== true) {
+        resultText += '</span>';
+    }
+}
+LMSSetValue = function(k, v) {
+    var res = "ERROR";
+    try {
+        res = api.LMSSetValue(k, v);
+    } catch(e) {
+        console.trace(e);
+        res = "CATCH HIT";
+    }
+    if (res !== "true") {
+        resultText += '<span class="err">';
+    }
+    resultText += "LMSSetValue(" + k + ", " + v + "): ";
+    resultText += res + "\n";
+    if (res !== true) {
+        resultText += '</span>';
+    }
+}
+LMSGetValue = function(k) {
+    var res = "ERROR";
+    try {
+        res = api.LMSGetValue(k);
+        
+    } catch(e) {
+        console.trace(e);
+        res = "CATCH HIT";
+    }
+    if (api.LMSGetLastError() != "0") {
+        resultText += '<span class="err">';
+    }
+    resultText += "LMSGetValue(" + k + "): ";
+    resultText += res + "\n";
+    if (api.LMSGetLastError() !== "0") {
+        resultText += '</span>';
+    }
+}
+LMSCommit = function(n) {
+    var res = "ERROR";
+    try {
+        res = api.LMSCommit(n);
+    } catch(e) {
+        console.trace(e);
+        res = "CATCH HIT";
+    }
+    if (res !== "true") {
+        resultText += '<span class="err">';
+    }
+    resultText += "Committing: ";
+    resultText += res + "\n";
+    if (res !== true) {
+        resultText += '</span>';
+    }
+}
+LMSFinish = function(n) {
+    var res = "ERROR";
+    try {
+        res = api.LMSFinish(n);
+    } catch(e) {
+        console.trace(e);
+        res = "CATCH HIT";
+    }
+    if (res !== "true") {
+        resultText += '<span class="err">';
+    }
+    resultText += "Finishing: ";
+    resultText += res + "\n";
+    if (res !== true) {
+        resultText += '</span>';
+    }
+}
+LMSGetLastError = function(n) {
+    var res = "ERROR";
+    try {
+        res = api.LMSGetLastError();
+    } catch(e) {
+        console.trace(e);
+        res = "CATCH HIT";
+    }
+    if (res !== "true") {
+        resultText += '<span class="err">';
+    }
+    resultText += "LMSGetLastError: ";
+    resultText += res + "\n";
+    if (res !== true) {
+        resultText += '</span>';
+    }
+}
+LMSGetErrorString = function(n) {
+    var res = "ERROR";
+    try {
+        res = api.LMSGetErrorString(n);
+    } catch(e) {
+        console.trace(e);
+        res = "CATCH HIT";
+    }
+    if (res !== "true") {
+        resultText += '<span class="err">';
+    }
+    resultText += "LMSGetErrorString: ";
+    resultText += res + "\n";
+    if (res !== true) {
+        resultText += '</span>';
+    }
+}
+var api = getAPIHandle();
+
+function runArbitrary() {
+    var t = document.getElementById('runnables');
+    //console.log(t.value);
+    eval(t.value);
+    var l = document.getElementById('log');
+    l.innerHTML = resultText;
+}
+</script>
+</head>
+
+<body id="body">
+    <div>
+        <textarea id="runnables" rows="10" cols="80">
+LMSInitialize("");
+LMSSetValue("cmi.core.score.raw", "82");
+LMSSetValue("cmi.core.lesson_status", "failed");
+LMSSetValue("cmi.interactions.0.result", "correct");
+LMSCommit("");
+LMSGetValue("cmi.core.score.raw");
+LMSFinish("");
+        </textarea>
+        <div>
+            <button onclick="runArbitrary()">Run</button>
+        </div>
+    </div>
+    <pre id="log">
+    </pre>
+
+<script type="text/javascript">
+var url = new URL(window.location.href);
+var c = url.searchParams.get("c");
+if (c) {
+    var b = document.getElementById("body");
+    b.style.backgroundColor = "#" + c;
+}
+</script>
+</body>
+</html>
