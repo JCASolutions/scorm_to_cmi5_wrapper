@@ -1,0 +1,10 @@
+This library is a starting work towards a wrapper that can convert most SCORM course operations to cmi5.  At this point, it is not a fully validating SCORM adapter, and is only expected to work with SCORM 1.2 courses that have lighter expectations around the usage of the standard.  
+
+Details about the library's operation can be found in our presentation here: https://www.jcasolutions.com/scorm_to_cmi5.pdf
+
+Upcoming work includes:
+  * SCORM 2004 support
+  * Thin vs. fat storage layers
+  * Better SCORM iterable key support
+
+
